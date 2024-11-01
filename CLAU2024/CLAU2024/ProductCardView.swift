@@ -11,15 +11,26 @@ struct ProductCard: View {
     @State private var isFavorite = false
     @State private var isInCart = false
     @State private var showInfo = false
+    
+    private var imageWidth: CGFloat = 90
+    private var imageHeight: CGFloat = 90
+    private var iconWidth: CGFloat = 24
+    private var iconHeight: CGFloat = 24
+    private var cardWidth: CGFloat = 130
+    private var verticalPadding: CGFloat = 6.0
+    private var horizontalPadding: CGFloat = 8.0
+    private var cornerRadius: CGFloat = 8.0
+    private var lineWidth: CGFloat = 2.0
+    
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(spacing: verticalPadding) {
             // Imagen del producto
             Image("tenis")
                 .resizable()
                 .scaledToFill()
-                .frame(width: 90, height: 90)
+                .frame(width: imageWidth, height: imageHeight)
                 .padding(.top)
-            VStack(alignment: .leading, spacing: 6.0) {
+            VStack(alignment: .leading, spacing: verticalPadding) {
                 // Nombre del producto
                 Text("Tennis Running")
                     .font(.body)
@@ -33,55 +44,53 @@ struct ProductCard: View {
                 Button(action: {
                     isFavorite.toggle()
                 }) {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.blue)
-                        .accessibilityHidden(true)
+                    createImage(isSelected: isFavorite, active: "heart.fill", inactive: "heart")
                 }
                 .accessibilityAction(named: "Agregar a favoritos") {
                     isFavorite.toggle()
                 }
                 Spacer()
+                
                 Button(action: {
                     isInCart.toggle()
                 }) {
-                    Image(systemName: isInCart ? "cart.fill" : "cart")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.blue)
-                        .accessibilityHidden(true)
+                    createImage(isSelected: isInCart, active: "cart.fill", inactive: "cart")
                 }
+                .frame(width: iconWidth, height: iconHeight)
                 .accessibilityAction(named: "Agregar al carrito") {
                     isInCart.toggle()
                 }
                 Spacer()
+                
                 Button(action: {
                     showInfo.toggle()
                 }) {
-                    Image(systemName: showInfo ? "info.circle.fill" : "info.circle")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
-                        .foregroundColor(.blue)
-                        .accessibilityHidden(true)
+                    createImage(isSelected: showInfo, active: "info.circle.fill", inactive: "info.circle")
                 }
+                .frame(width: iconWidth, height: iconHeight)
                 .accessibilityAction(named: "Más información") {
                     showInfo.toggle()
                 }
             }
-            .padding(.horizontal, 8)
+            .padding(.horizontal, horizontalPadding)
             .padding(.bottom)
         }
-        .frame(width: 130, height: 200)
+        .frame(width: cardWidth)
         .background(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.blue, lineWidth: 2)
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .stroke(Color.blue, lineWidth: lineWidth)
         )
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Producto: Tennis Running, Envío gratis")
+    }
+    
+    private func createImage(isSelected: Bool, active: String, inactive: String) -> some View {
+        return Image(systemName: isSelected ? active : inactive)
+            .resizable()
+            .scaledToFit()
+            .frame(width: iconWidth, height: iconHeight)
+            .foregroundColor(.blue)
+            .accessibilityHidden(true)
     }
 }
 #Preview {
