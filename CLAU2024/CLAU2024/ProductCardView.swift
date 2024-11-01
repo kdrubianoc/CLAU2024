@@ -56,7 +56,6 @@ struct ProductCard: View {
                 }) {
                     createImage(isSelected: isInCart, active: "cart.fill", inactive: "cart")
                 }
-                .frame(width: iconWidth, height: iconHeight)
                 .accessibilityAction(named: "Agregar al carrito") {
                     isInCart.toggle()
                 }
@@ -67,13 +66,12 @@ struct ProductCard: View {
                 }) {
                     createImage(isSelected: showInfo, active: "info.circle.fill", inactive: "info.circle")
                 }
-                .frame(width: iconWidth, height: iconHeight)
                 .accessibilityAction(named: "Más información") {
                     showInfo.toggle()
                 }
             }
             .padding(.horizontal, horizontalPadding)
-            .padding(.bottom)
+            .padding(.bottom, verticalPadding)
         }
         .frame(width: cardWidth)
         .background(

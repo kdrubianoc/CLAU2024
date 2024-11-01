@@ -108,7 +108,7 @@ class ProductCardUIKit: UIView {
         // Definimos las constraints
         NSLayoutConstraint.activate([
             // Constraints de la imagen del producto
-            productImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 16),
+            productImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
             productImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             productImageView.heightAnchor.constraint(equalToConstant: imageHeight),
             productImageView.widthAnchor.constraint(equalToConstant: imageWidth),
@@ -117,13 +117,13 @@ class ProductCardUIKit: UIView {
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 6),
             titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -6),
             // Constraints del subtítulo
-            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+            subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
             subtitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 6),
             subtitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -6),
             // Constraints del stack de botones
-            buttonStackView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 12),
-            buttonStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 6),
-            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -6),
+            buttonStackView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 6),
+            buttonStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            buttonStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             buttonStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -6),
             self.widthAnchor.constraint(equalToConstant: cardWidth),
             
