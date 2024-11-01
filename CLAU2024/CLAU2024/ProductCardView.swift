@@ -61,6 +61,7 @@ struct ProductCard: View {
                 }) {
                     createImage(isSelected: isFavorite, active: "heart.fill", inactive: "heart")
                 }
+                // Modificador para crear custom action
                 .accessibilityAction(named: "Agregar a favoritos") {
                     isFavorite.toggle()
                 }
@@ -71,6 +72,7 @@ struct ProductCard: View {
                 }) {
                     createImage(isSelected: isInCart, active: "cart.fill", inactive: "cart")
                 }
+                // Modificador para crear custom action
                 .accessibilityAction(named: "Agregar al carrito") {
                     isInCart.toggle()
                 }
@@ -81,6 +83,7 @@ struct ProductCard: View {
                 }) {
                     createImage(isSelected: showInfo, active: "info.circle.fill", inactive: "info.circle")
                 }
+                // Modificador para crear custom action
                 .accessibilityAction(named: "Más información") {
                     showInfo.toggle()
                 }
@@ -93,6 +96,7 @@ struct ProductCard: View {
             RoundedRectangle(cornerRadius: Constants.cornerRadius)
                 .stroke(Color.blue, lineWidth: Constants.lineWidth)
         )
+        // Modificador para vista semántica
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(title), \(subtitle)")
     }
@@ -103,6 +107,7 @@ struct ProductCard: View {
             .scaledToFit()
             .frame(width: Constants.iconWidth, height: Constants.iconHeight)
             .foregroundColor(.blue)
+        //Modificador para ocultar la imagen
             .accessibilityHidden(true)
     }
 }

@@ -18,6 +18,10 @@ struct ContentView: View {
                 NavigationLink(destination: UIKitViewControllerRepresentable()) {
                     Text("UIKit")
                 }
+                
+                NavigationLink(destination: ProductView()) {
+                    Text("With Accordion")
+                }
             }
             .navigationBarTitle("Custom Actions")
         }

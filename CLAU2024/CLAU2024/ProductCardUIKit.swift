@@ -169,26 +169,34 @@ class ProductCardUIKit: UIView {
     }
     
     func setupAccessibility() {
+        // Comportamiento de vista semántica
         self.isAccessibilityElement = true
         self.accessibilityElements = [titleLabel, subtitleLabel, favoriteButton, cartButton, infoButton]
         self.accessibilityLabel = "\(titleLabel.text ?? ""), \(subtitleLabel.text ?? "")"
         
+        // Custom actions
         let favoriteAction = UIAccessibilityCustomAction(
             name: "Agregar a favoritos",
-            target: self,
-            selector: #selector(toggleFavorite))
+            actionHandler: { (action: UIAccessibilityCustomAction) -> Bool in
+                self.toggleFavorite()
+                return true
+            })
         
-        let actionAdd = UIAccessibilityCustomAction(
+        let addToCartAction = UIAccessibilityCustomAction(
             name: "Agregar al carrito",
-            target: self,
-            selector: #selector(toggleCart))
+            actionHandler: { (action: UIAccessibilityCustomAction) -> Bool in
+                self.toggleCart()
+                return true
+            })
         
-        let actionShowInfo = UIAccessibilityCustomAction(
+        let showInfoAction = UIAccessibilityCustomAction(
             name: "Más información",
-            target: self,
-            selector: #selector(toggleInfo))
+            actionHandler: { (action: UIAccessibilityCustomAction) -> Bool in
+                self.toggleInfo()
+                return true
+            })
         
-        self.accessibilityCustomActions = [favoriteAction, actionAdd, actionShowInfo]
+        self.accessibilityCustomActions = [favoriteAction, addToCartAction, showInfoAction]
     }
 }
 
