@@ -13,6 +13,10 @@ class ProductCardUIKit: UIView {
     var isInCart = false
     var showInfo = false
     
+    var imageName: String?
+    var title: String?
+    var subtitle: String?
+    
     private var imageWidth: CGFloat = 90
     private var imageHeight: CGFloat = 90
     private var iconWidth: CGFloat = 24
@@ -25,14 +29,12 @@ class ProductCardUIKit: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "tenis")
         return imageView
     }()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Tennis Running"
         label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         label.textAlignment = .left
         return label
@@ -41,7 +43,6 @@ class ProductCardUIKit: UIView {
     private let subtitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Llegan hoy"
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .green
         label.textAlignment = .left
@@ -75,19 +76,24 @@ class ProductCardUIKit: UIView {
         return button
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-        setupAccessibility()
-    }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    public init(imageName: String, title: String, subtitle: String) {
+        self.imageName = imageName
+        self.title = title
+        self.subtitle = subtitle
+        super.init(frame: .zero)
         setupView()
         setupAccessibility()
     }
     
     private func setupView() {
+        titleLabel.text = title
+        subtitleLabel.text = subtitle
+        productImageView.image = UIImage(named: imageName ?? "")
+        
         // Configuramos las propiedades de la vista principal
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.borderWidth = lineWidth
@@ -98,6 +104,7 @@ class ProductCardUIKit: UIView {
         addSubview(productImageView)
         addSubview(titleLabel)
         addSubview(subtitleLabel)
+        
         let buttonStackView = UIStackView(arrangedSubviews: [favoriteButton, cartButton, infoButton])
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         buttonStackView.axis = .horizontal
@@ -112,14 +119,17 @@ class ProductCardUIKit: UIView {
             productImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             productImageView.heightAnchor.constraint(equalToConstant: imageHeight),
             productImageView.widthAnchor.constraint(equalToConstant: imageWidth),
+            
             // Constraints del título
             titleLabel.topAnchor.constraint(equalTo: productImageView.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 6),
             titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -6),
+            
             // Constraints del subtítulo
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 6),
             subtitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 6),
             subtitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -6),
+            
             // Constraints del stack de botones
             buttonStackView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 6),
             buttonStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -136,24 +146,28 @@ class ProductCardUIKit: UIView {
             infoButton.heightAnchor.constraint(equalToConstant: iconHeight)
         ])
     }
+    
     @objc func toggleFavorite() {
         isFavorite.toggle()
         let newImage = isFavorite ? "heart.fill" : "heart"
         favoriteButton.setImage(UIImage(systemName: newImage), for: .normal)
         favoriteButton.tintColor = .systemBlue
     }
+    
     @objc func toggleCart() {
         isInCart.toggle()
         let newImage = isInCart ? "cart.fill" : "cart"
         cartButton.setImage(UIImage(systemName: newImage), for: .normal)
         cartButton.tintColor = .systemBlue
     }
+    
     @objc func toggleInfo() {
         showInfo.toggle()
         let newImage = showInfo ? "info.circle.fill" : "info.circle"
         infoButton.setImage(UIImage(systemName: newImage), for: .normal)
         infoButton.tintColor = .systemBlue
     }
+    
     func setupAccessibility() {
         self.isAccessibilityElement = true
         self.accessibilityElements = [titleLabel, subtitleLabel, favoriteButton, cartButton, infoButton]
@@ -180,6 +194,6 @@ class ProductCardUIKit: UIView {
 
 
 #Preview {
-    ProductCardUIKit()
+    ProductCardUIKit(imageName: "tenis", title: "Tenis Running", subtitle: "Envío gratis")
 }
 

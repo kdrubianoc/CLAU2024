@@ -10,7 +10,7 @@ import UIKit
 class ProductCardViewController: UIViewController {
     override func viewDidLoad() {
       super.viewDidLoad()
-      let productCard = ProductCardUIKit()
+      let productCard = ProductCardUIKit(imageName: "tenis", title: "Tenis Running", subtitle: "Envío gratis")
       view.addSubview(productCard)
         
       NSLayoutConstraint.activate([

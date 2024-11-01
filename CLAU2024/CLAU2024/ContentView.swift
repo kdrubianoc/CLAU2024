@@ -11,7 +11,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(destination: ProductCard()) {
+                NavigationLink(destination: ProductCard(imageName: "tenis", title: "Tenis Running", subtitle: "Envío gratis")) {
                     Text("SwiftUI")
                 }
                 

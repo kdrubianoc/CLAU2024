@@ -12,33 +12,48 @@ struct ProductCard: View {
     @State private var isInCart = false
     @State private var showInfo = false
     
-    private var imageWidth: CGFloat = 90
-    private var imageHeight: CGFloat = 90
-    private var iconWidth: CGFloat = 24
-    private var iconHeight: CGFloat = 24
-    private var cardWidth: CGFloat = 130
-    private var verticalPadding: CGFloat = 6.0
-    private var horizontalPadding: CGFloat = 8.0
-    private var cornerRadius: CGFloat = 8.0
-    private var lineWidth: CGFloat = 2.0
+    var imageName: String
+    var title: String
+    var subtitle: String
+    
+    struct Constants {
+        static let imageWidth: CGFloat = 90
+        static let imageHeight: CGFloat = 90
+        static let iconWidth: CGFloat = 24
+        static let iconHeight: CGFloat = 24
+        static let cardWidth: CGFloat = 130
+        static let verticalPadding: CGFloat = 6.0
+        static let horizontalPadding: CGFloat = 8.0
+        static let cornerRadius: CGFloat = 8.0
+        static let lineWidth: CGFloat = 2.0
+    }
     
     var body: some View {
-        VStack(spacing: verticalPadding) {
+        VStack(alignment: .leading, spacing: Constants.verticalPadding) {
             // Imagen del producto
-            Image("tenis")
-                .resizable()
-                .scaledToFill()
-                .frame(width: imageWidth, height: imageHeight)
-                .padding(.top)
-            VStack(alignment: .leading, spacing: verticalPadding) {
+            HStack {
+                Spacer()
+                
+                Image(imageName)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: Constants.imageWidth, height: Constants.imageHeight)
+                    .padding(.top)
+                
+                Spacer()
+            }
+            
+            VStack(alignment: .leading, spacing: Constants.verticalPadding) {
                 // Nombre del producto
-                Text("Tennis Running")
+                Text(title)
                     .font(.body)
                 // Disponibilidad
-                Text("Envío gratis")
+                Text(subtitle)
                     .font(.subheadline)
                     .foregroundColor(.green)
             }
+            .padding(.horizontal, Constants.horizontalPadding)
+            
             // Íconos de acciones
             HStack {
                 Button(action: {
@@ -70,27 +85,28 @@ struct ProductCard: View {
                     showInfo.toggle()
                 }
             }
-            .padding(.horizontal, horizontalPadding)
-            .padding(.bottom, verticalPadding)
+            .padding(.horizontal, Constants.horizontalPadding)
+            .padding(.bottom, Constants.verticalPadding)
         }
-        .frame(width: cardWidth)
+        .frame(width: Constants.cardWidth)
         .background(
-            RoundedRectangle(cornerRadius: cornerRadius)
-                .stroke(Color.blue, lineWidth: lineWidth)
+            RoundedRectangle(cornerRadius: Constants.cornerRadius)
+                .stroke(Color.blue, lineWidth: Constants.lineWidth)
         )
         .accessibilityElement(children: .combine)
-        .accessibilityLabel("Producto: Tennis Running, Envío gratis")
+        .accessibilityLabel("\(title), \(subtitle)")
     }
     
     private func createImage(isSelected: Bool, active: String, inactive: String) -> some View {
         return Image(systemName: isSelected ? active : inactive)
             .resizable()
             .scaledToFit()
-            .frame(width: iconWidth, height: iconHeight)
+            .frame(width: Constants.iconWidth, height: Constants.iconHeight)
             .foregroundColor(.blue)
             .accessibilityHidden(true)
     }
 }
+
 #Preview {
-    ProductCard()
+    ProductCard(imageName: "tenis", title: "Tenis Running", subtitle: "Envío gratis")
 }
